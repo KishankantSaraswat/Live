@@ -1,3 +1,15 @@
-Flask==2.2.0
+Flask==3.0.3
+Flask-Cors==4.0.1
+requests==2.32.3
+pandas==2.2.2
+numpy==1.26.4
+tensorflow==2.16.1
+keras==3.4.1
+librosa==0.10.2.post1
+PyAudio==0.2.14
+pydub==0.25.1
+SpeechRecognition==3.10.4
 gunicorn==20.1.0
-Werkzeug==2.2.3
+Werkzeug==3.0.3
+scipy==1.13.1
+wave
