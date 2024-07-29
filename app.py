@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, request, redirect, flash, Response
+from flask import Flask, render_template, session, request, redirect, flash
 import os
 import time
 import pandas as pd
@@ -7,7 +7,7 @@ from library.speech_emotion_recognition import speechEmotionRecognition
 # Flask config
 app = Flask(__name__)
 app.secret_key = b'(\xee\x00\xd4\xce"\xcf\xe8@\r\xde\xfc\xbdJ\x08W'
-app.config['UPLOAD_FOLDER'] = '/Upload'
+app.config['UPLOAD_FOLDER'] = 'Upload'  # Fixed path (removed leading slash)
 
 @app.route('/', methods=['GET'])
 def index():
@@ -40,10 +40,12 @@ def audio_recording():
     if not os.path.exists(tmp_dir):
         os.makedirs(tmp_dir)
 
-    SER.voice_recording(rec_sub_dir, duration=rec_duration)
+    try:
+        SER.voice_recording(rec_sub_dir, duration=rec_duration)
+        flash("The recording is over! You now have the opportunity to do an analysis of your emotions. If you wish, you can also choose to record yourself again.")
+    except Exception as e:
+        flash(f"An error occurred during recording: {e}")
 
-    # Send Flash message
-    flash("The recording is over! You now have the opportunity to do an analysis of your emotions. If you wish, you can also choose to record yourself again.")
     return render_template('audio.html', display_button=True)
 
 @app.route('/audio_dash', methods=["POST", "GET"])
@@ -57,40 +59,45 @@ def audio_dash():
     # Voice Record sub dir
     rec_sub_dir = os.path.join('tmp', 'voice_recording.wav')
 
-    # Predict emotion in voice at each time step
-    step = 1  # in sec
-    sample_rate = 16000  # in Hz
-    emotions, timestamp = SER.predict_emotion_from_file(rec_sub_dir, chunk_step=step * sample_rate)
+    try:
+        # Predict emotion in voice at each time step
+        step = 1  # in sec
+        sample_rate = 16000  # in Hz
+        emotions, timestamp = SER.predict_emotion_from_file(rec_sub_dir, chunk_step=step * sample_rate)
 
-    # Export predicted emotions to .txt format
-    SER.prediction_to_csv(emotions, os.path.join("static/js/db", "audio_emotions.txt"), mode='w')
-    SER.prediction_to_csv(emotions, os.path.join("static/js/db", "audio_emotions_other.txt"), mode='a')
+        # Export predicted emotions to .txt format
+        SER.prediction_to_csv(emotions, os.path.join("static/js/db", "audio_emotions.txt"), mode='w')
+        SER.prediction_to_csv(emotions, os.path.join("static/js/db", "audio_emotions_other.txt"), mode='a')
 
-    # Get most common emotion during the interview
-    major_emotion = max(set(emotions), key=emotions.count)
+        # Get most common emotion during the interview
+        major_emotion = max(set(emotions), key=emotions.count)
 
-    # Calculate emotion distribution
-    emotion_dist = [int(100 * emotions.count(emotion) / len(emotions)) for emotion in SER._emotion.values()]
+        # Calculate emotion distribution
+        emotion_dist = [int(100 * emotions.count(emotion) / len(emotions)) for emotion in SER._emotion.values()]
 
-    # Export emotion distribution to .csv format for D3JS
-    df = pd.DataFrame(emotion_dist, index=SER._emotion.values(), columns=['VALUE']).rename_axis('EMOTION')
-    df.to_csv(os.path.join('static/js/db', 'audio_emotions_dist.txt'), sep=',')
+        # Export emotion distribution to .csv format
+        df = pd.DataFrame(emotion_dist, index=SER._emotion.values(), columns=['VALUE']).rename_axis('EMOTION')
+        df.to_csv(os.path.join('static/js/db', 'audio_emotions_dist.txt'), sep=',')
 
-    # Get most common emotion of other candidates
-    df_other = pd.read_csv(os.path.join("static/js/db", "audio_emotions_other.txt"), sep=",")
+        # Get most common emotion of other candidates
+        df_other = pd.read_csv(os.path.join("static/js/db", "audio_emotions_other.txt"), sep=",")
 
-    # Get most common emotion during the interview for other candidates
-    major_emotion_other = df_other['EMOTION'].mode()[0]
+        # Get most common emotion during the interview for other candidates
+        major_emotion_other = df_other['EMOTION'].mode()[0]
 
-    # Calculate emotion distribution for other candidates
-    emotion_dist_other = [int(100 * len(df_other[df_other['EMOTION'] == emotion]) / len(df_other)) for emotion in SER._emotion.values()]
+        # Calculate emotion distribution for other candidates
+        emotion_dist_other = [int(100 * len(df_other[df_other['EMOTION'] == emotion]) / len(df_other)) for emotion in SER._emotion.values()]
 
-    # Export emotion distribution to .csv format for D3JS
-    df_other = pd.DataFrame(emotion_dist_other, index=SER._emotion.values(), columns=['VALUE']).rename_axis('EMOTION')
-    df_other.to_csv(os.path.join('static/js/db', 'audio_emotions_dist_other.txt'), sep=',')
+        # Export emotion distribution to .csv format
+        df_other = pd.DataFrame(emotion_dist_other, index=SER._emotion.values(), columns=['VALUE']).rename_axis('EMOTION')
+        df_other.to_csv(os.path.join('static/js/db', 'audio_emotions_dist_other.txt'), sep=',')
 
-    # Sleep
-    time.sleep(0.5)
+        # Sleep
+        time.sleep(0.5)
+
+    except Exception as e:
+        flash(f"An error occurred during emotion analysis: {e}")
+        return redirect('/audio_index')
 
     return render_template('audio_dash.html', emo=major_emotion, emo_other=major_emotion_other, prob=emotion_dist, prob_other=emotion_dist_other)
 
