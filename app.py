@@ -1,20 +1,7 @@
-<<<<<<< HEAD
-from __future__ import division
-import numpy as np
-import pandas as pd
-import time
-import os
-from collections import Counter
-import altair as alt
-=======
-from flask import Flask, render_template
->>>>>>> 72688c10e7230dcb6b34908251027d5dab820e02
-
-# Flask imports
-import requests
 from flask import Flask, render_template, session, request, redirect, flash, Response
-
-# Audio imports
+import os
+import time
+import pandas as pd
 from library.speech_emotion_recognition import speechEmotionRecognition
 
 # Flask config
@@ -30,21 +17,9 @@ def index():
 def landing():
     return render_template('Audio_Interview.html')
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 72688c10e7230dcb6b34908251027d5dab820e02
 @app.route('/interview/v')
 def video_interview():
     return render_template('interview.html')
-
-<<<<<<< HEAD
-# Read the overall dataframe before the user starts to add his own data
-df = pd.read_csv('static/js/db/histo.txt', sep=",")
-
-################################################################################
-############################### AUDIO INTERVIEW ################################
-################################################################################
 
 @app.route('/audio_index', methods=['POST'])
 def audio_index():
@@ -118,14 +93,12 @@ def audio_dash():
     time.sleep(0.5)
 
     return render_template('audio_dash.html', emo=major_emotion, emo_other=major_emotion_other, prob=emotion_dist, prob_other=emotion_dist_other)
-=======
-# Video interview template
+
 @app.route('/video', methods=['POST'])
-def video() :
+def video():
     # Display a warning message
     flash('You will have 45 seconds to discuss the topic mentioned above. Due to restrictions, we are not able to redirect you once the video is over. Please move your URL to /video_dash instead of /video_1 once over. You will be able to see your results then.')
     return render_template('video.html')
->>>>>>> 72688c10e7230dcb6b34908251027d5dab820e02
 
 # This block is only used for local development
 if __name__ == '__main__':
