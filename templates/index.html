@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Interview Test</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <style>
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+          "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+          "Helvetica Neue", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      .font-link {
+        font-family: "M PLUS Rounded 1c", cursive;
+      }
+
+      .landing-img {
+        background-image: url("{{ url_for('static', filename='images/landing3.png') }}");
+        background-size: cover;
+        background-position: center;
+        width: 100%;
+        height: 600px; /* Adjust as needed */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white; /* Optional: Adjust text color for contrast */
+        text-align: center; /* Optional: Center text */
+      }
+
+      .navbar {
+        background-color: #e5e8eb; /* Adjust as needed */
+      }
+
+      .navbar-brand img {
+        height: 50px; /* Adjust as needed */
+      }
+
+      .nav-buttons button {
+        margin-left: 10px; /* Adjust spacing between buttons as needed */
+      }
+
+      .navbar-nav .nav-link {
+        color: #000; /* Black text color */
+        font-weight: bold;
+      }
+
+      .navbar-nav .nav-link:hover {
+        color: #333; /* Darker gray on hover */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="/">
+        <img
+          src="{{ url_for('static', filename='assets/logo/logo.svg') }}"
+          alt="logo"
+        />
+      </a>
+      <div class="ml-auto d-flex align-items-center">
+        <div class="nav-buttons">
+          <a href="/Video_Interview">
+            <button type="button" class="btn btn-dark">Video</button>
+          </a>
+          <a href="/Audio_Interview">
+            <button type="button" class="btn btn-dark">Audio</button>
+          </a>
+        </div>
+        <a href="/profile">
+          <button type="button" class="btn btn-light ml-3">
+            <img
+              src="{{ url_for('static', filename='images/profile-user-svgrepo-com.svg') }}"
+              alt="Profile"
+              style="height: 30px"
+            />
+          </button>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="landing-img">
+      <div class="py-24 w-100">
+        <div class="d-flex flex-column font-link align-items-center my-3">
+          <h1
+            class="display-1"
+            style="font-weight: bolder; margin-bottom: 60px"
+          >
+            AI Interview Test
+          </h1>
+          <p class="fs-4" style="margin-bottom: 60px">
+            Test & Develop Your Interview Skills
+          </p>
+          <a href="/Audio_Interview">
+            <button type="button" class="btn btn-outline-light py-2">
+              Get Started
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-white py-2">
+      <div class="container text-center">
+        <div class="row">
+          <!-- About Section -->
+          <div class="col-md-4 mb-2 mb-md-0">
+            <h5 class="footer-heading">About Us</h5>
+            <p class="footer-text">
+              AI Interview provides cutting-edge tools to enhance your interview
+              skills and help you prepare for the future.
+            </p>
+          </div>
+          <!-- Contact Section -->
+          <div class="col-md-4 mb-2 mb-md-0">
+            <h5 class="footer-heading">Contact</h5>
+            <p class="footer-text">
+              Email:
+              <a href="mailto:contact@aiinterview.com" class="text-white"
+                >contact@aiinterview.com</a
+              ><br />
+              Follow us on:
+              <a
+                href="https://github.com/aryasoni98/AI-Interview"
+                target="_blank"
+                class="text-white"
+                >GitHub</a
+              >
+              |
+              <a
+                href="https://discord.com/invite/Je3PHcMRT9"
+                target="_blank"
+                class="text-white"
+                >Discord</a
+              >
+            </p>
+          </div>
+          <!-- Legal Section -->
+          <div class="col-md-4 mb-2 mb-md-0">
+            <h5 class="footer-heading">Legal</h5>
+            <p class="footer-text">
+              <a
+                href="{{ url_for('static', filename='assets/terms-of-service.pdf') }}"
+                target="_blank"
+                class="text-white"
+                >Terms of Service</a
+              ><br />
+              <a
+                href="{{ url_for('static', filename='assets/privacy-policy.pdf') }}"
+                target="_blank"
+                class="text-white"
+                >Privacy Policy</a
+              >
+            </p>
+          </div>
+        </div>
+        <div class="mt-2">
+          <p class="mb-0">&copy; 2024 AI Interview. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <style>
+      .footer {
+        background-color: #343a40; /* Dark background for the footer */
+      }
+
+      .footer-heading {
+        font-weight: bold;
+        font-size: 1rem; /* Adjusted font size for headings */
+      }
+
+      .footer-text {
+        font-size: 0.875rem; /* Smaller font size for text */
+        margin: 0;
+      }
+
+      .footer a {
+        color: #f8f9fa; /* Light color for the links */
+      }
+
+      .footer a:hover {
+        text-decoration: underline; /* Underline links on hover */
+      }
+
+      .footer p {
+        margin: 0;
+        font-size: 0.875rem; /* Adjusted font size for overall text */
+      }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </body>
+</html>

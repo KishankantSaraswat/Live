@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Audio Interview</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='CSS/sidebar.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+
+    <div class="d-flex flex-column align-items-center my-2 px-52">
+      <h1
+        class="display-2 font-link font-weight-bold"
+        style="font-weight: bolder"
+      >
+        Audio Interview
+      </h1>
+      <div class="w-full h-full d-flex" style="gap: 80px">
+        <div class="w-full h-full" style="margin-left: 75px">
+          <div class="app">
+            <div
+              class="app__container bg-dark p-2"
+              style="
+                height: 500px;
+                width: 700px;
+                margin-bottom: 60px;
+                margin-left: -50px;
+              "
+            >
+              <div style="margin-top: 190px; margin-left: 20px">
+                <form action="/start_recording" method="post">
+                  <button id="startAudio" class="btn btn-primary">
+                    Start Recording
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex m-4 justify-evenly">
+            <button
+              id="startAudioBtn"
+              class="border-2 m-4 text-white bg-blue-900 px-8 py-2 border-blue fs-2 font-medium rounded-2"
+            >
+              Start Audio
+            </button>
+            <button
+              id="stopAudioBtn"
+              class="border-2 m-4 text-white bg-blue-900 px-8 py-2 border-blue fs-2 font-medium rounded-2"
+              style="display: none"
+            >
+              Stop Audio
+            </button>
+          </div>
+        </div>
+        <div
+          class="d-flex flex-column ml-12 text-xl font-regular"
+          style="margin-top: 25px; gap: 10px; height: 100%"
+        >
+          <div
+            class="w-full rounded-2 fs-4 p-2 ml-4"
+            style="background-color: lightgrey; height: 100px; width: 380px"
+          >
+            You will have 15 mins to answer the questions mentioned above.
+          </div>
+          <div
+            class="rounded-2 p-4 fs-4"
+            style="background-color: lightgrey; height: 370px; width: 380px"
+          >
+            <div id="questions"></div>
+          </div>
+          <div class="d-flex justify-evenly pt-5">
+            <button
+              class="border-2 px-3 text-blue border-black fs-4 font-medium rounded-2"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="sidebar" class="sidebar" style="display: none">
+      <h2>Select a Position</h2>
+      <div class="positions">
+        <div class="position" data-title="Frontend Developer">
+          <img
+            src="{{ url_for('static', filename='images/frontend.jpg') }}"
+            alt="Frontend Developer"
+            style="width: 50px; height: 50px"
+          />
+          <span>Frontend Developer</span>
+        </div>
+        <div class="position" data-title="Backend Developer">
+          <img
+            src="{{ url_for('static', filename='images/backend.png') }}"
+            alt="Backend Developer"
+            style="width: 50px; height: 50px"
+          />
+          <span>Backend Developer</span>
+        </div>
+        <div class="position" data-title="Full Stack Developer">
+          <img
+            src="{{ url_for('static', filename='images/fullStack.jpg') }}"
+            alt="Full Stack Developer"
+            style="width: 50px; height: 50px"
+          />
+          <span>Full Stack Developer</span>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="audioPlayer"
+      style="margin-top: 20px; text-align: center; display: none"
+    >
+      <h3>Recorded Audio:</h3>
+      <audio controls id="audio">
+        <source id="audioSource" src="" type="audio/webm" />
+        Your browser does not support the audio element.
+      </audio>
+      <br />
+      <a id="downloadLink" href="" download="recorded-audio.webm">
+        <button class="btn btn-primary">Download Audio</button>
+      </a>
+    </div>
+
+    {% include 'footer.html' %}
+    <script src="{{ url_for('static', filename='js/audio/audio_Interview1.js') }}"></script>
+  </body>
+</html>

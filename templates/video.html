@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="/static/CSS/style.css" />
+    <title>AI Interview</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <style>
+      /* Basic styles */
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        padding: 20px;
+      }
+
+      .quotation {
+        font-size: 1.5rem;
+        margin: 20px 0;
+      }
+
+      form {
+        text-align: center;
+      }
+
+      .Won {
+        background-color: #4caf50;
+        color: white;
+        margin: 15px 0;
+        padding: 15px;
+        border-radius: 5px;
+        position: relative;
+      }
+
+      .closebtn {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+      }
+
+      input[type="button"],
+      input[type="submit"] {
+        margin: 10px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+
+      /* Responsive styles */
+      @media (max-width: 768px) {
+        .quotation {
+          font-size: 1.2rem;
+        }
+
+        input[type="button"],
+        input[type="submit"] {
+          width: 100%;
+          margin: 10px 0;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .quotation {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="/">
+      <img
+        src="/static/images/header/header_video.png"
+        style="width: 100%"
+        alt="Header Image"
+      />
+    </a>
+
+    {% block body %}
+
+    <br />
+    <blockquote>
+      <p class="quotation">
+        Tell us about the last time you showed leadership.
+      </p>
+    </blockquote>
+
+    <br />
+    <form action="/video_1" method="post">
+      <input type="submit" name="video_1" value="Start Recording" />
+    </form>
+
+    <br />
+
+    {% with messages = get_flashed_messages() %} {% if messages %} {% for
+    message in messages %}
+    <div class="Won">
+      <span class="closebtn" onclick="this.parentElement.style.display='none';"
+        >&times;</span
+      >
+      {{ message }}
+    </div>
+    {% endfor %} {% endif %} {% endwith %} {% endblock %}
+
+    <br />
+    <br />
+    <form>
+      <input type="button" value="Back" onclick="history.go(-1)" />
+    </form>
+  </body>
+</html>

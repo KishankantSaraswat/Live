@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Interview</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <style>
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+          "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+          "Helvetica Neue", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      .font-link {
+        font-family: "M PLUS Rounded 1c", cursive;
+      }
+      .sideBot-img {
+        max-width: 100%;
+        height: auto;
+      }
+      .btn-dark {
+        background-color: #343a40;
+        border-color: #343a40;
+      }
+      .btn-outline-dark {
+        border-color: #343a40;
+        color: #343a40;
+      }
+      .btn-outline-dark:hover {
+        background-color: #343a40;
+        color: #fff;
+      }
+      .navbar {
+        background-color: #e5e8eb;
+      }
+      .navbar-brand img {
+        height: 50px;
+      }
+      .footer {
+        background-color: #343a40;
+        color: #f8f9fa;
+      }
+      .footer-heading {
+        font-weight: bold;
+        font-size: 1rem;
+      }
+      .footer-text {
+        font-size: 0.875rem;
+        margin: 0;
+      }
+      .footer a {
+        color: #f8f9fa;
+      }
+      .footer a:hover {
+        text-decoration: underline;
+      }
+      .footer p {
+        margin: 0;
+        font-size: 0.875rem;
+      }
+      .sideBot-container {
+        position: fixed;
+        right: 0;
+        top: 100px;
+        bottom: 40px;
+        transform: translateX(10%);
+        max-width: 250px;
+        width: 100%;
+      }
+      .video-section {
+        margin: 100px 10px;
+        position: relative;
+        text-align: center;
+      }
+      .button-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+      @media (max-width: 768px) {
+        .video-section {
+          margin: 60px 10px;
+        }
+        .sideBot-container {
+          display: none;
+        }
+        .button-group {
+          flex-direction: column;
+          gap: 10px;
+        }
+        .fs-4 {
+          width: 100%;
+        }
+      }
+      @media (max-width: 576px) {
+        .navbar-brand img {
+          height: 40px;
+        }
+        .font-link {
+          font-size: 1.5rem;
+        }
+        .footer-heading {
+          font-size: 0.875rem;
+        }
+        .footer-text {
+          font-size: 0.75rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="/">
+        <img
+          src="{{ url_for('static', filename='assets/logo/logo.svg') }}"
+          alt="logo"
+        />
+      </a>
+      <div class="ml-auto d-flex align-items-center">
+        <div class="nav-buttons">
+          <a href="/Video_Interview">
+            <button type="button" class="btn btn-dark">Video</button>
+          </a>
+          <a href="/Audio_Interview">
+            <button type="button" class="btn btn-dark">Audio</button>
+          </a>
+        </div>
+        <a href="/profile">
+          <button type="button" class="btn btn-light ml-3">
+            <img
+              src="{{ url_for('static', filename='images/profile-user-svgrepo-com.svg') }}"
+              alt="Profile"
+              style="height: 30px"
+            />
+          </button>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="video-section">
+      <h1
+        class="display-2 font-link"
+        style="font-weight: bolder; margin-bottom: 60px"
+      >
+        Video Interview
+      </h1>
+      <div class="fs-4 mb-5">
+        <p>
+          Use the video interview simulator and get feedback on how our
+          algorithm interprets your facial emotions compared to other
+          candidates.
+        </p>
+        <br />
+        <p style="font-weight: lighter">
+          You will be provided feedback on your facial emotions such as:
+        </p>
+        <br />
+        <p style="font-weight: lighter">
+          Anger | Happiness | Fear | Sadness | Surprise | Disgust
+        </p>
+      </div>
+      <br />
+      <br />
+      <div class="button-group">
+        <form action="/video" method="post">
+          <input
+            type="submit"
+            name="video"
+            value="Video Interview"
+            class="btn btn-dark px-3 py-2"
+          />
+        </form>
+        <a href="/video_dash" class="btn btn-outline-dark py-2">Result</a>
+      </div>
+
+      <!-- SideBot Image -->
+      <div class="sideBot-container">
+        <img
+          src="{{ url_for('static', filename='assets/images/sideBot.svg') }}"
+          alt="SideBot"
+          class="sideBot-img"
+        />
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer py-2">
+      <div class="container text-center">
+        <div class="row">
+          <div class="col-md-4 mb-2 mb-md-0">
+            <h5 class="footer-heading">About Us</h5>
+            <p class="footer-text">
+              AI Interview provides cutting-edge tools to enhance your interview
+              skills and help you prepare for the future.
+            </p>
+          </div>
+          <div class="col-md-4 mb-2 mb-md-0">
+            <h5 class="footer-heading">Contact</h5>
+            <p class="footer-text">
+              Email:
+              <a href="mailto:contact@aiinterview.com" class="text-white"
+                >contact@aiinterview.com</a
+              ><br />
+              Follow us on:
+              <a href="https://github.com/" target="_blank" class="text-white"
+                >GitHub</a
+              >
+              |
+              <a
+                href="https://discord.com/invite/Je3PHcMRT9"
+                target="_blank"
+                class="text-white"
+                >Discord</a
+              >
+            </p>
+          </div>
+          <div class="col-md-4 mb-2 mb-md-0">
+            <h5 class="footer-heading">Legal</h5>
+            <p class="footer-text">
+              <a
+                href="{{ url_for('static', filename='assets/terms-of-service.pdf') }}"
+                target="_blank"
+                class="text-white"
+                >Terms of Service</a
+              ><br />
+              <a
+                href="{{ url_for('static', filename='assets/privacy-policy.pdf') }}"
+                target="_blank"
+                class="text-white"
+                >Privacy Policy</a
+              >
+            </p>
+          </div>
+        </div>
+        <div class="mt-2">
+          <p class="mb-0">&copy; 2024 AI Interview. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

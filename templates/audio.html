@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="/static/CSS/style.css" />
+    <title>AI Interview</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f4f4f9;
+      }
+      .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .quotation {
+        font-size: 1.5em;
+        text-align: center;
+        margin: 20px 0;
+        font-style: italic;
+        color: #333;
+        border-left: 4px solid #333;
+        padding-left: 15px;
+      }
+      form {
+        text-align: center;
+        margin: 20px 0;
+      }
+      input[type="submit"],
+      input[type="button"] {
+        padding: 10px 20px;
+        font-size: 1em;
+        cursor: pointer;
+        background: #333;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: background 0.3s, box-shadow 0.3s;
+      }
+      input[type="submit"]:hover,
+      input[type="button"]:hover {
+        background: #555;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+      .Won {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px;
+        margin: 20px 0;
+        border-radius: 5px;
+        text-align: center;
+        position: relative;
+        animation: fadeIn 1s ease-in-out;
+      }
+      .closebtn {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .closebtn:hover {
+        color: black;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @media (max-width: 768px) {
+        .quotation {
+          font-size: 1.2em;
+        }
+        input[type="submit"],
+        input[type="button"] {
+          padding: 8px 16px;
+          font-size: 0.9em;
+        }
+      }
+      @media (max-width: 480px) {
+        .quotation {
+          font-size: 1em;
+        }
+        input[type="submit"],
+        input[type="button"] {
+          padding: 6px 12px;
+          font-size: 0.8em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!--
+       Audio image header
+        -->
+
+      {% block body %}
+
+      <!--
+          Interview question
+           -->
+      <br />
+      <blockquote>
+        <p class="quotation">
+          Tell us about the last time you showed leadership.
+        </p>
+      </blockquote>
+
+      <!--
+          Audio recording button
+          -->
+      <br />
+      <form action="/audio_recording" method="post">
+        <input type="submit" name="audio_recording" value="Start Recording" />
+      </form>
+
+      <!--
+          Flash Messages
+          -->
+      <br />
+      <br />
+      <br />
+      {% with messages = get_flashed_messages() %} {% if messages %} {% for
+      message in messages %}
+      <div class="Won">
+        <span
+          class="closebtn"
+          onclick="this.parentElement.style.display='none';"
+          >&times;</span
+        >
+        {{ message }}
+      </div>
+      {% endfor %} {% endif %} {% endwith %}
+      <br />
+      <br />
+
+      <!--
+          Emotion analysis button
+          -->
+      {% if display_button == True %}
+      <form action="/audio_dash" method="get">
+        <input
+          type="submit"
+          name="audio_analysis"
+          value="Get Emotion Analysis"
+        />
+      </form>
+      {% endif %} {% endblock %}
+
+      <!--
+      Rules
+      -->
+      <br />
+
+      <form>
+        <input type="button" value="Back" onclick="history.go(-1)" />
+      </form>
+
+      <br />
+    </div>
+  </body>
+</html>

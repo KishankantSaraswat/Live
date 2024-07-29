@@ -1,0 +1,60 @@
+<!-- footer.html -->
+<footer class="footer bg-dark text-white py-2">
+  <div class="container text-center">
+    <div class="row">
+      <!-- About Section -->
+      <div class="col-md-4 mb-2 mb-md-0">
+        <h5 class="footer-heading">About Us</h5>
+        <p class="footer-text">
+          AI Interview provides cutting-edge tools to enhance your interview
+          skills and help you prepare for the future.
+        </p>
+      </div>
+      <!-- Contact Section -->
+      <div class="col-md-4 mb-2 mb-md-0">
+        <h5 class="footer-heading">Contact</h5>
+        <p class="footer-text">
+          Email:
+          <a href="mailto:contact@aiinterview.com" class="text-white"
+            >contact@aiinterview.com</a
+          ><br />
+          Follow us on:
+          <a
+            href="https://github.com/aryasoni98/AI-Interview"
+            target="_blank"
+            class="text-white"
+            >GitHub</a
+          >
+          |
+          <a
+            href="https://discord.com/invite/Je3PHcMRT9"
+            target="_blank"
+            class="text-white"
+            >Discord</a
+          >
+        </p>
+      </div>
+      <!-- Legal Section -->
+      <div class="col-md-4 mb-2 mb-md-0">
+        <h5 class="footer-heading">Legal</h5>
+        <p class="footer-text">
+          <a
+            href="{{ url_for('static', filename='assets/terms-of-service.pdf') }}"
+            target="_blank"
+            class="text-white"
+            >Terms of Service</a
+          ><br />
+          <a
+            href="{{ url_for('static', filename='assets/privacy-policy.pdf') }}"
+            target="_blank"
+            class="text-white"
+            >Privacy Policy</a
+          >
+        </p>
+      </div>
+    </div>
+    <div class="mt-2">
+      <p class="mb-0">&copy; 2024 AI Interview. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
