@@ -20,6 +20,8 @@
           "Helvetica Neue", sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+        background-color: #f8f9fa;
+        color: #343a40;
       }
 
       .font-link {
@@ -27,16 +29,16 @@
       }
 
       .landing-img {
-        background-image: url("{{ url_for('static', filename='images/landing3.png') }}");
+        background-image: url("{{ url_for('static', filename='images/l.jpg') }}");
         background-size: cover;
         background-position: center;
         width: 100%;
-        height: 600px; /* Adjust as needed */
+        height: 100vh; /* Adjust as needed for full screen */
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white; /* Optional: Adjust text color for contrast */
-        text-align: center; /* Optional: Center text */
+        text-align: center;
+        color: #fff;
       }
 
       .navbar {
@@ -47,7 +49,7 @@
         height: 50px; /* Adjust as needed */
       }
 
-      .nav-buttons button {
+      .nav-buttons a {
         margin-left: 10px; /* Adjust spacing between buttons as needed */
       }
 
@@ -57,7 +59,110 @@
       }
 
       .navbar-nav .nav-link:hover {
-        color: #333; /* Darker gray on hover */
+        color: #007bff; /* Blue color on hover */
+      }
+
+      .footer {
+        background-color: #343a40; /* Dark background color for the footer */
+        color: #f8f9fa; /* Light text color for the footer */
+      }
+
+      .footer p {
+        margin: 0;
+        font-size: 0.9rem; /* Adjusted font size for overall text */
+      }
+
+      .btn-dark,
+      .btn-outline-dark {
+        border-radius: 25px;
+      }
+
+      .btn-dark {
+        background-color: #343a40; /* Dark background color for buttons */
+        border-color: #343a40; /* Match border color with background */
+      }
+
+      .btn-dark:hover {
+        background-color: #23272b; /* Slightly darker background color on hover */
+        border-color: #1d2124; /* Match border color with background */
+      }
+
+      .btn-outline-dark {
+        color: #343a40; /* Dark text color for outline buttons */
+        border-color: #343a40; /* Dark border color */
+      }
+
+      .btn-outline-dark:hover {
+        background-color: #343a40; /* Dark background color on hover */
+        color: ; /* White text color on hover */
+      }
+
+      .btn-outline-light {
+        color: #343a40; /* Dark text color for outline buttons */
+        border-color: #343a40; /* Dark border color */
+      }
+
+      .btn-outline-light:hover {
+        background-color: #343a40; /* Dark background color on hover */
+        color: #fff; /* White text color on hover */
+      }
+
+      .sideBot-img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      .sideBot-container {
+        position: fixed;
+        right: 0;
+        top: 100px;
+        bottom: 40px;
+        transform: translateX(0);
+        max-width: 250px;
+        width: 100%;
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .landing-img {
+          height: 100vh; /* Full height for smaller screens */
+        }
+
+        .navbar-brand img {
+          height: 40px; /* Smaller logo on smaller screens */
+        }
+
+        .nav-buttons {
+          text-align: center; /* Center align buttons on smaller screens */
+        }
+
+        .nav-buttons a {
+          margin-left: 0; /* Remove left margin for vertical stacking */
+          margin-bottom: 10px; /* Add bottom margin for spacing */
+        }
+        .sideBot-container {
+          display: none;
+        }
+      }
+
+      /* Extra small screens */
+      @media (max-width: 576px) {
+        .landing-img {
+          height: 100vh; /* Full height for extra small screens */
+        }
+
+        .navbar-brand img {
+          height: 30px; /* Even smaller logo on extra small screens */
+        }
+
+        .nav-buttons {
+          flex-direction: column;
+          align-items: center; /* Stack buttons vertically */
+        }
+
+        .nav-buttons a {
+          margin: 5px 0; /* Adjust spacing between buttons vertically */
+        }
       }
     </style>
   </head>
@@ -70,141 +175,111 @@
           alt="logo"
         />
       </a>
-      <div class="ml-auto d-flex align-items-center">
-        <div class="nav-buttons">
-          <a href="/Video_Interview">
-            <button type="button" class="btn btn-dark">Video</button>
-          </a>
-          <a href="/Audio_Interview">
-            <button type="button" class="btn btn-dark">Audio</button>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="ml-auto d-flex align-items-center">
+          <div class="nav-buttons">
+            <a href="/interview/v">
+              <button type="button" class="btn btn-dark">Video</button>
+            </a>
+            <a href="/Audio_Interview">
+              <button type="button" class="btn btn-dark">Audio</button>
+            </a>
+          </div>
+          <a href="/profile">
+            <button type="button" class="btn btn-light ml-3">
+              <img
+                src="{{ url_for('static', filename='images/profile-user-svgrepo-com.svg') }}"
+                alt="Profile"
+                style="height: 30px"
+              />
+            </button>
           </a>
         </div>
-        <a href="/profile">
-          <button type="button" class="btn btn-light ml-3">
-            <img
-              src="{{ url_for('static', filename='images/profile-user-svgrepo-com.svg') }}"
-              alt="Profile"
-              style="height: 30px"
-            />
-          </button>
-        </a>
       </div>
     </nav>
 
     <!-- Main Content -->
     <div class="landing-img">
-      <div class="py-24 w-100">
-        <div class="d-flex flex-column font-link align-items-center my-3">
-          <h1
-            class="display-1"
-            style="font-weight: bolder; margin-bottom: 60px"
-          >
+      <div class="container">
+        <div class="py-5 text-center">
+          <h1 class="display-3 font-link font-weight-bold" style="color: black">
             AI Interview Test
           </h1>
-          <p class="fs-4" style="margin-bottom: 60px">
+          <p class="lead" style="color: black">
             Test & Develop Your Interview Skills
           </p>
+
           <a href="/Audio_Interview">
-            <button type="button" class="btn btn-outline-light py-2">
+            <button
+              type="button"
+              class="btn btn-outline-light py-2 px-4"
+              style="color: black; background: lightgoldenrodyellow"
+            >
               Get Started
             </button>
           </a>
         </div>
       </div>
     </div>
+    <!-- SideBot Image -->
+    <div class="sideBot-container">
+      <img
+        src="{{ url_for('static', filename='assets/images/sideBot.svg') }}"
+        alt="SideBot"
+        class="sideBot-img"
+      />
+    </div>
 
     <!-- Footer -->
-    <footer class="footer bg-dark text-white py-2">
+    <footer class="footer bg-dark text-white py-3">
       <div class="container text-center">
-        <div class="row">
-          <!-- About Section -->
-          <div class="col-md-4 mb-2 mb-md-0">
-            <h5 class="footer-heading">About Us</h5>
-            <p class="footer-text">
-              AI Interview provides cutting-edge tools to enhance your interview
-              skills and help you prepare for the future.
-            </p>
-          </div>
-          <!-- Contact Section -->
-          <div class="col-md-4 mb-2 mb-md-0">
-            <h5 class="footer-heading">Contact</h5>
-            <p class="footer-text">
-              Email:
-              <a href="mailto:contact@aiinterview.com" class="text-white"
-                >contact@aiinterview.com</a
-              ><br />
-              Follow us on:
-              <a
-                href="https://github.com/aryasoni98/AI-Interview"
-                target="_blank"
-                class="text-white"
-                >GitHub</a
-              >
-              |
-              <a
-                href="https://discord.com/invite/Je3PHcMRT9"
-                target="_blank"
-                class="text-white"
-                >Discord</a
-              >
-            </p>
-          </div>
-          <!-- Legal Section -->
-          <div class="col-md-4 mb-2 mb-md-0">
-            <h5 class="footer-heading">Legal</h5>
-            <p class="footer-text">
-              <a
-                href="{{ url_for('static', filename='assets/terms-of-service.pdf') }}"
-                target="_blank"
-                class="text-white"
-                >Terms of Service</a
-              ><br />
-              <a
-                href="{{ url_for('static', filename='assets/privacy-policy.pdf') }}"
-                target="_blank"
-                class="text-white"
-                >Privacy Policy</a
-              >
-            </p>
-          </div>
-        </div>
-        <div class="mt-2">
-          <p class="mb-0">&copy; 2024 AI Interview. All rights reserved.</p>
-        </div>
+        <p class="mb-0">&copy; 2024 AI Interview. All rights reserved.</p>
       </div>
     </footer>
-
-    <style>
-      .footer {
-        background-color: #343a40; /* Dark background for the footer */
-      }
-
-      .footer-heading {
-        font-weight: bold;
-        font-size: 1rem; /* Adjusted font size for headings */
-      }
-
-      .footer-text {
-        font-size: 0.875rem; /* Smaller font size for text */
-        margin: 0;
-      }
-
-      .footer a {
-        color: #f8f9fa; /* Light color for the links */
-      }
-
-      .footer a:hover {
-        text-decoration: underline; /* Underline links on hover */
-      }
-
-      .footer p {
-        margin: 0;
-        font-size: 0.875rem; /* Adjusted font size for overall text */
-      }
-    </style>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var sideBot = document.querySelector(".sideBot-container");
+        var isDragging = false;
+        var offsetX, offsetY;
+
+        sideBot.addEventListener("mousedown", function (e) {
+          isDragging = true;
+          offsetX =
+            e.clientX - parseInt(window.getComputedStyle(sideBot).right);
+          offsetY =
+            e.clientY - parseInt(window.getComputedStyle(sideBot).bottom);
+          sideBot.classList.add("dragging");
+        });
+
+        document.addEventListener("mousemove", function (e) {
+          if (isDragging) {
+            var right = window.innerWidth - e.clientX - offsetX;
+            var bottom = window.innerHeight - e.clientY - offsetY;
+            sideBot.style.right = right + "px";
+            sideBot.style.bottom = bottom + "px";
+          }
+        });
+
+        document.addEventListener("mouseup", function () {
+          isDragging = false;
+          sideBot.classList.remove("dragging");
+        });
+      });
+    </script>
   </body>
 </html>
